@@ -2,6 +2,7 @@ import { ApolloServer } from 'apollo-server';
 import { makeExecutableSchema } from 'graphql-tools';
 import * as mongoose from 'mongoose';
 import { userResolvers, userTypeDefs } from './common/user/user.schema';
+import { workspaceResolvers, workspaceTypeDefs } from './common/workspace/workspace.schema';
 import config from './config'
 
 mongoose.connect(
@@ -27,8 +28,8 @@ const rootTypeDefs = `
  * resolvers.
  */
 const schema = makeExecutableSchema({
-  typeDefs: [rootTypeDefs, userTypeDefs],
-  resolvers: userResolvers,
+  typeDefs: [rootTypeDefs, userTypeDefs, workspaceTypeDefs],
+  resolvers: merge(userResolvers, workspaceResolvers),
 });
 
 /**
