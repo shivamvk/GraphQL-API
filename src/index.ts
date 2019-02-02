@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server';
 import { makeExecutableSchema } from 'graphql-tools';
 import * as mongoose from 'mongoose';
+import { merge } from 'lodash';
 import { userResolvers, userTypeDefs } from './common/user/user.schema';
 import { workspaceResolvers, workspaceTypeDefs } from './common/workspace/workspace.schema';
 import config from './config'

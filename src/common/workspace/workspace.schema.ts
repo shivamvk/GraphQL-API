@@ -1,6 +1,6 @@
 import Workspace from './workspace.model';
 
-exprt const workspaceTypeDefs = '
+export const workspaceTypeDefs = `
 
   type Workspace{
     _id : ID!
@@ -23,17 +23,17 @@ exprt const workspaceTypeDefs = '
   }
 
   extend type Mutation{
-    addWorskspace(input: WorkspaceInput!) : Workspace
+    addWorkspace(input: WorkspaceInput!) : Workspace
   }
 
-';
+`;
 
 export const workspaceResolvers: any = {
   Query: {
     async workspaces(_,{ filter }){
       const workspaces: any[] = await Workspace.find({}, null, filter);
       return workspaces.map(workspace => workspace.toGraph())
-    }
+    },
     async workspace(_,{ id }){
       const workspace: any = await Workspace.findById(id);
       return workspace.toGraph();

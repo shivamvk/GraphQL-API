@@ -1,4 +1,5 @@
 import User from './user.model';
+import Workspace from '../workspace/workspace.model'
 
 export const userTypeDefs = `
 
@@ -8,6 +9,9 @@ export const userTypeDefs = `
     password: String
     firstName: String
     lastName: String
+
+    workspaceId: String
+    workspace: Workspace
   }
 
   input UserFilterInput {
@@ -24,6 +28,7 @@ export const userTypeDefs = `
     password: String
     firstName: String
     lastName: String
+    workspaceId: String
   }
 
   extend type Mutation {
@@ -58,4 +63,13 @@ export const userResolvers = {
       return user ? user.toGraph() : null;
     },
   },
+  User: {
+    async workspace(user: {workspaceId : String}){
+      if(user.workspaceId){
+        const workspace: any = await Workspace.findById(user.workspaceId);
+        return workspace.toGraph();
+      }
+      return null;
+    }
+  }
 };

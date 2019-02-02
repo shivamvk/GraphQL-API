@@ -5,6 +5,10 @@ import * as mongoose from 'mongoose';
  * validate the data sent to our database.
  */
 const userSchema = new mongoose.Schema({
+  workspaceId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Workspace',
+  },
   email: {
     type: String,
     required: true,
