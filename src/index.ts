@@ -1,4 +1,3 @@
-
 import { ApolloServer } from 'apollo-server';
 import { makeExecutableSchema } from 'graphql-tools';
 import * as mongoose from 'mongoose';
