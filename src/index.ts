@@ -12,8 +12,8 @@ mongoose.connect(
 );
 
 /**
- * We must define a root type so that our server knows where to
- * look when we query the server i.e. in the "root" types.
+ * Define a root type so that server knows where to
+ * look when it's queried.
  */
 const rootTypeDefs = `
   type Query
@@ -25,7 +25,7 @@ const rootTypeDefs = `
 `;
 
 /**
- * Declare the schema which the will hold our GraphQL types and
+ * Declare the schema which the will hold GraphQL types and
  * resolvers.
  */
 const schema = makeExecutableSchema({
@@ -33,24 +33,16 @@ const schema = makeExecutableSchema({
   resolvers: merge(userResolvers, workspaceResolvers),
 });
 
-/**
- * Create the server which we will send our GraphQL queries to.
- */
 const server = new ApolloServer({
   schema,
   formatError(error) {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-      // logging the errors can help in development
       console.log(error);
     }
     return error;
   },
 });
 
-/**
- * Turn the server on by listening to a port.
- * Defaults to: http://localhost:4000
- */
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
